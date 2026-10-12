@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local database + uploads
+/.data/
+
+# blank template listing required settings (no secrets)
+!.env.example

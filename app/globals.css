@@ -1,26 +1,66 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #f6f7f9;
+  color: #18181b;
+}
+
+/* shared form controls */
+@layer components {
+  .input {
+    @apply w-full rounded-md border border-zinc-300 bg-white px-2.5 py-1.5 text-sm shadow-xs outline-none transition placeholder:text-zinc-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 disabled:bg-zinc-50;
+  }
+  .label {
+    @apply mb-1 block text-xs font-medium text-zinc-600;
+  }
+  .btn-primary,
+  .btn-secondary,
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium whitespace-nowrap transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-blue-600 text-white shadow-xs hover:bg-blue-700;
+  }
+  .btn-secondary {
+    @apply border border-zinc-300 bg-white text-zinc-800 shadow-xs hover:bg-zinc-50;
+  }
+  .btn-ghost {
+    @apply text-zinc-600 hover:bg-zinc-100 hover:text-zinc-900;
+  }
+  .card {
+    @apply rounded-lg border border-zinc-200 bg-white shadow-xs;
+  }
+  .table {
+    @apply w-full text-left text-sm;
+  }
+  /* Headers stay pinned while the table scrolls inside a .scroll-area.
+     The bottom rule is an inset shadow: with border-collapse a sticky cell's border scrolls away. */
+  .table th {
+    @apply sticky top-0 z-10 bg-zinc-50 px-3 py-2 text-xs font-medium tracking-wide text-zinc-500 uppercase shadow-[inset_0_-1px_0_var(--color-zinc-200)];
+  }
+  .table td {
+    @apply border-b border-zinc-100 px-3 py-2 align-top;
+  }
+  .table tbody tr:hover {
+    @apply bg-zinc-50/70;
+  }
+
+  /* Long lists scroll inside their card instead of stretching the page. */
+  .scroll-area {
+    @apply overflow-auto;
+    max-height: min(30rem, 65vh);
+  }
+  /* For a page that is mostly one big list: fill the screen below the page header and filters. */
+  .scroll-area.scroll-area-tall {
+    max-height: max(20rem, calc(100dvh - 15rem));
+  }
 }
